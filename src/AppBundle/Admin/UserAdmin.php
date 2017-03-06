@@ -14,7 +14,7 @@ class UserAdmin extends AbstractAdmin
 
         $roles = array();
 
-        foreach ($this->container->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy) {
+        foreach ($this->getConfigurationPool()->getContainer()->getParameter('security.role_hierarchy.roles') as $name => $rolesHierarchy) {
             $roles[$name] = $name;
 
             foreach ($rolesHierarchy as $role) {
@@ -28,6 +28,7 @@ class UserAdmin extends AbstractAdmin
             ->add('username')
             ->add('email', 'email')
             ->add('roles', 'choice', array('choices' => $roles, 'multiple' => true))
+            ->add('plainPassword', 'password')
             ->add('enabled')
         ;
         //$formMapper->add('name', 'text');
