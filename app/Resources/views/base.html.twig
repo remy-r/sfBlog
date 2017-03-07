@@ -32,7 +32,11 @@
             </div>
 
             <span class="logout-spn" >
-                  <a href="#" style="color:#fff;">LOGOUT</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a href="{{ path('fos_user_security_logout') }}" style="color:#fff;">LOGOUT</a>
+                {% else %}
+                    <a href="{{ path('fos_user_security_login') }}" style="color:#fff;">LOGIN</a>
+                {% endif %}
 
                 </span>
         </div>
