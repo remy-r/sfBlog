@@ -32,6 +32,10 @@
             </div>
 
             <span class="logout-spn" >
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('sonata_admin_redirect') }}" style="color:#fff;">ADMIN</a> -
+                {% endif %}
+
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <a href="{{ path('fos_user_security_logout') }}" style="color:#fff;">LOGOUT</a>
                 {% else %}
