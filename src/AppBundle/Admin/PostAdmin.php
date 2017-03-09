@@ -18,6 +18,11 @@ class PostAdmin extends AbstractAdmin
                 'class' => 'AppBundle\Entity\PostState',
                 'property' => 'libelle',
             ))
+            ->add('user', 'sonata_type_model', array(
+                'required' => true,
+                'class' => 'AppBundle\Entity\FosUser',
+                'property' => 'username',
+            ))
         ;
         //$formMapper->add('name', 'text');
     }
