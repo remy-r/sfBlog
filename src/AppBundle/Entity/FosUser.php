@@ -21,6 +21,48 @@ class FosUser extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+
+        $this->posts = new ArrayCollection();
+    }
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="user")
+     */
+    private $posts;
+
+    /**
+     * Add post
+     *
+     * @param Post $post
+     *
+     * @return FosUser
+     */
+    public function addPost(Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param Post $post
+     */
+    public function removePost(Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

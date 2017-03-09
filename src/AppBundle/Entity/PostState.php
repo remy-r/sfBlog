@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * PostState
@@ -27,6 +28,21 @@ class PostState
      * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="postState")
+     */
+    private $posts;
+
+    /**
+     * PostState constructor.
+     */
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
 
 
     /**
@@ -62,5 +78,43 @@ class PostState
     {
         return $this->libelle;
     }
-}
 
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return PostState
+     */
+    public function addPost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\Post $post
+     */
+    public function removePost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    public function __toString()
+    {
+        return $this->libelle;
+    }
+}

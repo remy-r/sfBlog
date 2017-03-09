@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +49,38 @@ class Post
      * @ORM\Column(name="titre", type="string", length=500)
      */
     private $titre;
+
+    /**
+     * @var PostState
+     * @ORM\ManyToOne(targetEntity="PostState", inversedBy="posts")
+     * @ORM\JoinColumn(name="id_post_state", referencedColumnName="id")
+     */
+    private $postState;
+
+    /**
+     * @var FosUser
+     *
+     * @ORM\ManyToOne(targetEntity="FosUser", inversedBy="posts")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * Post constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = $this->updatedAt = new \DateTime("now");
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updated()
+    {
+        $this->updatedAt = new \DateTime("now");
+
+    }
 
 
     /**
@@ -155,5 +188,52 @@ class Post
     {
         return $this->titre;
     }
-}
 
+    /**
+     * Set postState
+     *
+     * @param PostState $postState
+     *
+     * @return Post
+     */
+    public function setPostState(PostState $postState = null)
+    {
+        $this->postState = $postState;
+
+        return $this;
+    }
+
+    /**
+     * Get postState
+     *
+     * @return PostState
+     */
+    public function getPostState()
+    {
+        return $this->postState;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\FosUser $user
+     *
+     * @return Post
+     */
+    public function setUser(\AppBundle\Entity\FosUser $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\FosUser
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}
