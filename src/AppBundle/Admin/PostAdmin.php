@@ -18,8 +18,9 @@ class PostAdmin extends AbstractAdmin
                 'required' => true,
                 'class' => 'AppBundle\Entity\PostState',
                 'property' => 'libelle',
+                'btn_add' => false
             ))
-            ->add('user', 'sonata_type_model', array(
+            ->add('user', 'sonata_type_model_autocomplete', array(
                 'required' => true,
                 'class' => 'AppBundle\Entity\FosUser',
                 'property' => 'username',
@@ -37,4 +38,10 @@ class PostAdmin extends AbstractAdmin
     {
         $listMapper->addIdentifier('titre');
     }
+
+    public function toString($object)
+    {
+        return $object->getTitre();
+    }
+
 }
