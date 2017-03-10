@@ -18,4 +18,5 @@ class DefaultController extends Controller
             ->findBy(array('postState' => 2)));
         return $this->render('default/index.html.twig');
     }
+
 }
