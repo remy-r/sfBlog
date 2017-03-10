@@ -36,7 +36,8 @@ class PostAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('titre');
+        $listMapper->addIdentifier('titre')
+            ->addIdentifier('postState');
     }
 
     public function toString($object)
