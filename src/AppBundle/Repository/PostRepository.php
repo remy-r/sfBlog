@@ -10,4 +10,19 @@ namespace AppBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByPostStateJoinedToUser($id_post_state)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT p, u FROM AppBundle:Post p
+            JOIN p.user u
+            WHERE p.postState = :id'
+            )->setParameter('id', $id_post_state);
+
+        try {
+            return $query->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
 }
