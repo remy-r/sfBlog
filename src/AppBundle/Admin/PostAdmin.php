@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Admin;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -12,7 +13,7 @@ class PostAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('titre')
-            ->add('postText', null, array('label' => "Texte"))
+            ->add('postText', CKEditorType::class, array('label' => "Texte"))
             ->add('postState', 'sonata_type_model', array(
                 'required' => true,
                 'class' => 'AppBundle\Entity\PostState',
