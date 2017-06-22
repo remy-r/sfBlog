@@ -32,7 +32,7 @@
 
             <span class="logout-spn">
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('sonata_admin_redirect') }}" style="color:#fff;">ADMIN</a> -
+                    <a href="{{ path('sonata_admin_dashboard') }}" style="color:#fff;">ADMIN</a> -
                 {% endif %}
 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}

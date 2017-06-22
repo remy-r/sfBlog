@@ -1,0 +1,48 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block sonata_side_nav %}
+
+    <div class="user-panel text-center">
+            <h4 style="color:white" class="text-center text-primary">{{ app.user |capitalize }}</h4>
+            
+        <a href="#" class="text-center"><i class="fa fa-circle text-success "></i> En ligne</a>
+    </div>
+
+    {{ parent() }}
+
+{% endblock sonata_side_nav %} 
+
+{% block sonata_top_nav_menu_add_block %}
+
+    {{ parent() }}
+
+    {% block top_bar_after_nav %}
+        <li class="dropdown">
+            <a href="{{ path('homepage') }}">
+                <span class="glyphicon glyphicon-globe"></span>
+            </a>
+        </li>
+    {% endblock %}
+
+{% endblock %}
+
+{% block sonata_top_nav_menu_user_block %}
+    <li class="dropdown user-menu">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <p style="margin: 0px;" class="text-success">{{ app.user |capitalize }} 
+                    <i class="fa fa-caret-down" aria-hidden="true"></i></p>
+            </a>
+        <ul class="dropdown-menu dropdown-user">
+            {% include sonata_admin.adminPool.getTemplate('user_block') %}
+        </ul>
+    </li>
+{% endblock %}
+
+{% block side_bar_after_nav %}
+    <p class="text-center small" style="border-top: 1px solid #444444; padding-top: 10px">
+        {% block side_bar_after_nav_content %}
+            <a href="http://www.anakrys.fr/" rel="noreferrer" target="_blank">Conception Remi & Florent Company</a>
+        {% endblock %}
+    </p>
+{% endblock %}
+
