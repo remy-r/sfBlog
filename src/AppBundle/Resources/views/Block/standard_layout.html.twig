@@ -12,32 +12,42 @@
 
 {% endblock sonata_side_nav %} 
 
-{% block sonata_top_nav_menu_add_block %}
-
-    {{ parent() }}
-
-    {% block top_bar_after_nav %}
-        <li class="dropdown">
-            <a href="{{ path('homepage') }}">
-                <span class="glyphicon glyphicon-globe"></span>
-            </a>
-        </li>
-    {% endblock %}
-
-{% endblock %}
+{% block sonata_top_nav_menu %}
+                            {% if app.user and is_granted('ROLE_SONATA_ADMIN') %}
+                                <div class="navbar-custom-menu">
+                                    <ul class="nav navbar-nav">
+                                        {% block sonata_top_nav_menu_add_block %}
+                                            <li class="dropdown">
+                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                    <i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                </a>
+                                                {% include sonata_admin.adminPool.getTemplate('add_block') %}
+                                            </li>
+                                        {% endblock %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        {% endblock %}
 
 {% block sonata_top_nav_menu_user_block %}
     <li class="dropdown user-menu">
+        {% if app.user.Lastname and app.user.Firstname is not null %}
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <p style="margin: 0px;" class="text-success">{{ app.user.Firstname |capitalize }}
+                    {{ app.user.Lastname |capitalize }}
+                    <i class="fa fa-caret-down" aria-hidden="true"></i></p>
+            </a>
+        {% else %}
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <p style="margin: 0px;" class="text-success">{{ app.user |capitalize }} 
                     <i class="fa fa-caret-down" aria-hidden="true"></i></p>
             </a>
+        {% endif %}
         <ul class="dropdown-menu dropdown-user">
             {% include sonata_admin.adminPool.getTemplate('user_block') %}
         </ul>
     </li>
 {% endblock %}
-
 {% block side_bar_after_nav %}
     <p class="text-center small" style="border-top: 1px solid #444444; padding-top: 10px">
         {% block side_bar_after_nav_content %}

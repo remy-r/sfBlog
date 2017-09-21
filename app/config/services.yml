@@ -22,3 +22,13 @@ services:
             arguments: [~, AppBundle\Entity\Post, ~]
             tags:
                 - { name: sonata.admin, manager_type: orm, label: Posts }
+
+
+     #-------------------------------------------------
+    # post
+    #-------------------------------------------------
+        
+    app.posts:
+        class: AppBundle\Services\Posts\PostsManager
+        arguments :
+            - '@doctrine.orm.entity_manager'
