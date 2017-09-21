@@ -1,7 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    test
+<h2>Les derniers posts</h2>
+    {# on récupère tous les post en ligne et récent pour les afficher en ligne #}
+    <div>
+        {%for post in posts%}    
+            <a>
+              {{post.titre}}
+            </a>
+            <ul>
+                <li>Post</li>
+                <li>{{post.postText}}</li>
+                <li>Date de création: {{post.createdAt|date("m/d/Y")}}</li>
+                </ul>
+
+        {% endfor %}  
+    </div>
+
+
 {% endblock %}
 
 {% block menu %}
